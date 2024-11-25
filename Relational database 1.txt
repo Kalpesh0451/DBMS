@@ -1,0 +1,161 @@
+PRACTICAL NO. : 1  
+Title: Study of Open-Source Relational Databases: MySQL/Oracle and Design and Develop SQL DDL 
+statements which demonstrate the use of SQL objects such as Table, View,Index, Sequence.
+
+mysql> create database hospital; Query 
+OK, 1 row affected (0.01 sec) mysql> 
+show databases;  
++--------------------+  
+| Database          
+| aditya_25          
+| aniket_2003     
+| cust_tri               
+| hospital              
+ | +--------------------+  
+|  
+ |  
+|  
+ |  
+| information_schema |  
+| mysql                  
+ |  
+| performance_schema |  
+| practical4          
+| sakila                 
+| sys                      
+world                 
+ |  
+ |  
+ |  
+ | | 
++--------------------+  
+11 rows in set (0.00 sec) 
+mysql> use hospital; Database 
+changed  
+mysql> create table doctors(d_id int, d_name varchar(20), d_speciality varchar(20),d_contact 
+varchar(10));  
+Query OK, 0 rows affected (0.03 sec) mysql> 
+desc doctors; +--------------+-------------+-----
++-----+---------+-------+  
+| Field          
+ | Type       
+ | Null | Key | Default | Extra |  
++--------------+-------------+------+-----+---------+-------+  
+| d_id              
+| d_name      
+| int                
+ | YES  |     
+ | varchar(20) | YES  |    
+| d_speciality | varchar(20) | YES  |     
+| NULL    |       |  
+ | NULL    |       
+|  
+| NULL    |       |  
+| d_contact    | varchar(10) | YES  |     | NULL    |      
++--------------+-------------+------+-----+---------+-------+  
+4 rows in set (0.01 sec) 
+mysql> use hospital; Database 
+changed  
+ |  
+mysql> create table patient(p_id int,p_name varchar(20),P_contact varchar(10)); 
+Query OK, 0 rows affected (0.02 sec) mysql> desc patient;  
++-----------+-------------+------+-----+---------+-------+  
+| Field    
+ | Type        
+| Null | Key | Default | Extra |  
++-----------+-------------+------+-----+---------+-------+  
+| p_id          
+| int                 
+ | YES  |     
+| NULL    |       |  
+| p_name    | varchar(20) | YES  |     | NULL    |       
+| P_contact | varchar(10) | YES  |     | NULL    |      
++-----------+-------------+------+-----+---------+-------+  
+3 rows in set (0.00 sec) 
+mysql> use hospital; Database 
+changed  
+|  
+ |  
+mysql> create table appointment(a_id int,a_date date,a_reason varchar(10)); 
+Query OK, 0 rows affected (0.01 sec) mysql> desc appointment;  
++----------+-------------+------+-----+---------+-------+  
+| Field    | Type       
+ | Null | Key | Default | Extra |  
++----------+-------------+------+-----+---------+-------+  
+| a_id          
+| int                
+| a_date     | date             
+ | YES  |    
+ | YES  |    
+ | NULL    |       
+ | NULL    |       
+| a_reason | varchar(10) | YES  |     | NULL    |       
++----------+-------------+------+-----+---------+-------+  
+|  
+|  
+|  
+3 rows in set (0.00 sec) 
+mysql> use hospital; Database 
+changed  
+mysql> create table medical(m_id int,m_name varchar(20),m_quantity_in_stock 
+varchar(20),m_expire_date date); Query OK, 0 rows affected (0.02 sec) mysql> 
+desc medical;  
++---------------------+-------------+------+-----+---------+-------+  
+| Field                              
+| Type           
+ | Null | Key | Default | Extra |  
++---------------------+-------------+------+-----+---------+-------+  
+| m_id                             
+| m_name                      
+ | int                 
+| YES  |     | NULL    |       |  
+ | varchar(20) | YES  |     
+| NULL    |      
+m_quantity_in_stock | varchar(20) | YES  |     | NULL    |      
+| m_expire_date             
+| date            
+ | | 
+ |  
+| YES  |     | NULL    |       |  
++---------------------+-------------+------+-----+---------+-------+  
+4 rows in set (0.00 sec) 
+mysql> use hospital; Database 
+changed  
+mysql> create table staff(s_id int,s_name varchar(20),s_hiredate date,s_salary varchar(10)); 
+Query OK, 0 rows affected (0.02 sec) mysql> desc staff;  
++------------+-------------+------+-----+---------+-------+  
+| Field     
+ | Type       
+ | Null | Key | Default | Extra |  
++------------+-------------+------+-----+---------+-------+  
+| s_id           
+| s_name     
+ | int                  
+| YES  |    
+ | varchar(20) | YES  |    
+| s_hiredate | date              
+| YES  |    
+ | NULL    |       
+ | NULL    |       
+ | NULL    |       
+| s_salary     | varchar(10)  | YES  |     | NULL    |       
++------------+-------------+------+-----+---------+-------+  
+4 rows in set (0.00 sec)  
+|  
+|  
+|  
+|  
+mysql> create view hospital_data as select d_name,d_speciality,  p_name ,  a_date,a_reason from 
+doctors,patient,  appointment; Query OK, 0 rows affected (0.02 sec) mysql> desc hospital_data;  
++--------------+-------------+------+-----+---------+-------+  
+| Field       
+ | Type       
+ | Null | Key | Default | Extra |  
++--------------+-------------+------+-----+---------+-------+  
+| d_name       | varchar(20) | YES  |     | NULL    |       |  
+| d_speciality | varchar(20) | YES  |     | NULL    |       |  
+| p_name       | varchar(20) | YES  |     | NULL    |       |  
+| a_date         | date              | YES  |     | NULL    |       |  
+| a_reason     | varchar(10) | YES  |     | NULL    |       |  
++--------------+-------------+------+-----+---------+-------+  
+5 rows in set (0.00 sec) 

@@ -1,0 +1,65 @@
+PRACTICAL NO. : 7 
+Title: Install and study MongoDB and implement CRUD operation  
+
+// create database use 
+practical7 // insert 
+command 
+db.product.insertOne({   
+item_no: 1,    name: 
+"Smartphone",   
+category: "Electronics",   
+price: 49999  
+});  
+db.product.insertOne({   
+item_no: 2,   name: 
+"Laptop",   category: 
+"Electronics",   price: 
+89999  
+});  
+db.product.insertOne({   
+item_no: 3,   name: "Wireless 
+Headphones",   category: 
+"Accessories",   price: 12999  
+});  
+// find command 
+db.product.find() // 
+update command 
+db.product.updateOne(  
+{ item_no: 2 },  
+{   
+$set: { price: 74999 }    
+} );  
+db.product.find() // 
+delete command  
+db.product.deleteOne({category :"Accessories" }) 
+db.product.find() Output: switched to db 
+practical7  
+{  
+}  
+{            
+}  
+{  
+"acknowledged" : true,  
+"insertedId" : ObjectId("67342d619efa1f82c530628d")  
+ "acknowledged" : true,  
+"insertedId" : ObjectId("67342d619efa1f82c530628e")  
+"acknowledged" : true,  
+"insertedId" : ObjectId("67342d619efa1f82c530628f")}  
+{ "_id" : ObjectId("67342d619efa1f82c530628d"), "item_no" : 1, "name" : "Smartphone", "category" 
+: "Electronics", "price" : 49999 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628e"), "item_no" : 2, "name" : "Laptop", "category" : 
+"Electronics", "price" : 89999 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628f"), "item_no" : 3, "name" : "Wireless Headphones", 
+"category" : "Accessories", "price" : 12999 }  
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628d"), "item_no" : 1, "name" : "Smartphone", "category" 
+: "Electronics", "price" : 49999 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628e"), "item_no" : 2, "name" : "Laptop", "category" : 
+"Electronics", "price" : 74999 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628f"), "item_no" : 3, "name" : "Wireless Headphones", 
+"category" : "Accessories", "price" : 12999 }  
+{ "acknowledged" : true, "deletedCount" : 1 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628d"), "item_no" : 1, "name" : "Smartphone", "category" 
+: "Electronics", "price" : 49999 }  
+{ "_id" : ObjectId("67342d619efa1f82c530628e"), "item_no" : 2, "name" : "Laptop", "category" :  
+"Electronics", "price" : 74999 }  

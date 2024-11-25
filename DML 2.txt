@@ -1,0 +1,137 @@
+PRACTICAL NO. : 2  
+Title:. Design at least 10 SQL queries for suitable database  application using SQL DML statements: 
+Insert, Select, Update, delete with operators, functions, and set operator, all types of Joins, 
+SubQuery and View.
+
+mysql> use hospital; Database 
+changed  
+mysql> insert into doctors value(4,"vaishnavi patil","cardiologist",7722034434); 
+Query OK, 1 row affected (0.00 sec) mysql> select * from doctors;  
++------+------------------+--------------+------------+  
+| d_id | d_name          
+ | d_speciality | d_contact  |  
++------+------------------+--------------+------------+  
+|    1 | ashwini gaidhani | psychologist | 9999988887 | |    
+2 | riya patel              
+|    3 | pooja nikam       
+| therepist      
+ | dentist           
+ | 7777666655 |  
+| 5555444433 |  
+|    4 | vaishnavi patil     | cardiologist   | 7722034434 |  
++------+------------------+--------------+------------+  
+4 rows in set (0.00 sec) mysql> 
+update doctors  -> set d_contact=8888999900  -> where d_id=4;  
+Query OK, 1 row affected (0.00 sec) Rows 
+matched: 1  Changed: 1  Warnings: 0 
+mysql> select * from doctors;  
++------+------------------+--------------+------------+  
+| d_id | d_name          
+ | d_speciality | d_contact  |  
++------+------------------+--------------+------------+  
+|    1 | ashwini gaidhani | psychologist | 9999988887 |  
+|    2 | riya patel             
+|    3 | pooja nikam         
+|    4 | vaishnavi patil     
+ | therepist       
+| dentist         
+| 7777666655 |  
+ | 5555444433 |  
+ | cardiologist | 8888999900 |  
++------+------------------+--------------+------------+  
+4 rows in set (0.00 sec)  
+mysql> insert into doctors value(5,"pooja rathod","dermatologist",7722034434),(6,"dhaneshwary 
+kawade","pediatrition",1122334455); Query OK, 2 rows affected (0.00 sec) Records: 2  
+Duplicates: 0  Warnings: 0 mysql> select * from doctors;  
++------+--------------------+---------------+------------+  
+| d_id | d_name            
+ | d_speciality  | d_contact  |  
++------+--------------------+---------------+------------+  
+|    1 | ashwini gaidhani           
+|    2 | riya patel                        
+|    3 | pooja nikam                  
+|    4 | vaishnavi patil               
+|    5 | pooja rathod                 
+| psychologist  | 9999988887 |  
+ | therepist       
+ | dentist            
+| cardiologist    
+ | 7777666655 |  
+ | 5555444433 |  
+ | 8888999900 |  
+| dermatologist | 7722034434 |  
+|    6 | dhaneshwary kawade | pediatrition     | 1122334455 |  
++------+--------------------+---------------+------------+  
+6 rows in set (0.00 sec) mysql> 
+delete from doctors  -> where d_id=6;  
+Query OK, 1 row affected (0.01 sec) mysql> 
+select * from doctors;  
++------+------------------+---------------+------------+  
+| d_id | d_name          
+ | d_speciality  | d_contact  |  
++------+------------------+---------------+------------+  
+|    1 | ashwini gaidhani | psychologist  | 9999988887 |  
+|    2 | riya patel       
+| therepist     | 7777666655 |  
+|    3 | pooja nikam      | dentist       
+| 5555444433 |  
+|    4 | vaishnavi patil  | cardiologist  | 8888999900 |  
+|    5 | pooja rathod     | dermatologist | 7722034434 |  
++------+------------------+---------------+------------+  
+5 rows in set (0.00 sec)  
+mysql> insert into doctors value(6,"dhaneshwary kawade","pediatrition",1122334455),(7,"rushita 
+chaudhary","orthopedist",2222333344),(8,"khushi patil  
+","gynac",4444555566),(9,"mariya ghaslatewala","neurosurgeon",5555666677),(10,"sanjana 
+bangar","nephrologist",7777888899); Query OK, 5 rows affected (0.00 sec) Records: 5  
+Duplicates: 0  Warnings: 0 mysql> select * from doctors;  
++------+---------------------+---------------+------------+  
+| d_id | d_name              
+| d_speciality  | d_contact  |  
++------+---------------------+---------------+------------+  
+|    1 | ashwini gaidhani    | psychologist  | 9999988887 |  
+|    2 | riya patel         
+|    3 | pooja nikam         
+ | therepist    
+| dentist       
+ | 7777666655 |  
+| 5555444433 |  
+|    4 | vaishnavi patil     | cardiologist  | 8888999900 |  
+|    5 | pooja rathod        
+| dermatologist | 7722034434 |  
+|    6 | dhaneshwary kawade  | pediatrition  | 1122334455 |  
+|    7 | rushita chaudhary   | orthopedist   | 2222333344 |  
+|    8 | khushi patil        
+| gynac        
+ | 4444555566 |  
+|    9 | mariya ghaslatewala | neurosurgeon  | 5555666677 |  
+|   10 | sanjana bangar     
+ | nephrologist  | 7777888899 |  
++------+---------------------+---------------+------------+  
+10 rows in set (0.00 sec) mysql> 
+update doctors  -> set d_speciality="psychiatrist"  -> where d_id=2;  
+Query OK, 1 row affected (0.01 sec) Rows 
+matched: 1  Changed: 1  Warnings: 0 
+mysql> select * from doctors;  
++------+---------------------+---------------+------------+  
+| d_id | d_name              
+| d_speciality  | d_contact  |  
++------+---------------------+---------------+------------+  
+|    1 | ashwini gaidhani    | psychologist  | 9999988887 |  
+|    2 | riya patel         
+|    3 | pooja nikam         
+ | psychiatrist  | 7777666655 |  
+| dentist       
+| 5555444433 |  
+|    4 | vaishnavi patil     | cardiologist  | 8888999900 |  
+|    5 | pooja rathod        
+| dermatologist | 7722034434 |  
+|    6 | dhaneshwary kawade  | pediatrition  | 1122334455 |  
+|    7 | rushita chaudhary   | orthopedist   | 2222333344 |  
+|    8 | khushi patil        
+| gynac        
+ | 4444555566 |  
+|    9 | mariya ghaslatewala | neurosurgeon  | 5555666677 |  
+|   10 | sanjana bangar     
+ | nephrologist  | 7777888899 |  
++------+---------------------+---------------+------------+  
+10 rows in set (0.00 sec) 

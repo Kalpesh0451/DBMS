@@ -1,0 +1,96 @@
+PRACTICAL NO. : 10  
+Title: Write a program to implement MogoDB database connectivity with PHP  
+
+
+Make a connection and select a database  
+?php  
+// connect to mongodb Sm-new 
+MongoClient();  
+echo "Connection to database successfully";  
+// select a database Sdb Sm
+mydb; echo "Database mydb 
+selected"; Output:  
+Connection to database successfully  
+Database mydb selected  
+• Create a collection <php  
+// connect to mongodb Sm 
+new MongoClient();  
+echo "Connection to database successfully";  
+// select a database Sdb 
+Smmydb; echo "Database mydb 
+selected";  
+Scollection Sdb-createCollection("mycol");echo  
+"Collection created succsessfully";  
+?-  
+Output:   
+Connection to database successfully  
+Database mydb selected  
+Collection created successfully  
+•  Insert a document  
+?php  
+// connect to mongodb Sm new 
+MongoClient(); echo "Connection to 
+database successfully";  
+// select a database  
+Sdb Smmydb;echo "Database mydb selected"; 
+Scollection Sdb-mycol; echo "Collection 
+selected succsessfully;  
+Sdocument array( "title"  
+=>"MongoDB",  
+"description" "database",  
+"likes" 100,  
+"url" "http://www.mongo.com/mongodb/","by",  
+);  
+Scollection insert (Sdocument); echo 
+"Document inserted successfully"; 
+Output:  
+Connection to database successfully  
+Database mydb selected  
+Collection selected succsessfully  
+Document inserted successfully  
+•  Find all documents   
+<?php  
+// connect to mongodb Sm new 
+MongoClient(); echo "Connection to 
+database successfully"; // select a database 
+Sdb = Sm->mydb; echo "Database mydb 
+selected"; Scollection Sdb->mycol; echo 
+"Collection selected succsessfully":  
+Scursor Scollection->find();  
+// iterate cursor to display title of documents  
+foreach ($cursor as $document) (echo $document["title"]."\n";  
+}  
+Output:  
+Connection to database successfully Database mydb selected Collection selected succsessfully  
+("title":  
+•  Update a Document   
+<?php  
+// connect to mongodb Smnew MongoClient(); echo 
+"Connection to database successfully",  
+// select a database $db Sm->mydb; echo "Database mydb selected"; Scollection $db->mycol; echo 
+"Collection selected succsessfully",  
+// now update the document Scollection->update(array("title"=>"MongoDB"), 
+array($set'=>array("title"=>"MongoDBNew"))); echo "Document updated 
+successfully';  
+// now display the updated document Scursor Scollection->find(); //iterate 
+cursor to display title of documentsecho "Updated document":  
+foreach (Scursor as $document) (echo $document["title"] "\n";  
+}  
+Output:  
+Connection to database successfullyDatabase mydb selected Collection selected 
+succsessfullyDocument updated successfully Updated document (  
+•  Delete a Document   
+<?php  
+// connect to mongodb $m = new MongoClient(); echo "Connection to database successfully";  
+// select a database $db = $m->mydb; echo "Database mydb selected"; $collection = $db->mycol; 
+echo "Collection selected succsessfully";  
+// now remove the document $collection->remove(array("title"=>"MongoDBNew"), false); echo 
+"Documents deleted successfully";  
+// now display the available documents $cursor = $collection->find();  
+// iterate cursor to display title of documentsecho "Updated document";  
+foreach ($cursor as $document) (echo $document["title"]. "\n";  
+}  
+Output:  
+Connection to database successfully  
+Database mydb selected  
+Collection selected 

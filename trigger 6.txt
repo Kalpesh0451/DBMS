@@ -1,0 +1,55 @@
+PRACTICAL NO. : 6 
+Title: Write a Pl/SQL block to create trigger on library table to keep track of updation and deletion of 
+records  
+
+-- Step 1: Drop the customers table if it exists  
+DROP TABLE IF EXISTS customers;  -- Step 2: Create the customers table  
+CREATE TABLE customers (  
+ID INT PRIMARY KEY,  
+NAME TEXT,  
+AGE INT,  
+ADDRESS TEXT,  
+SALARY REAL  
+);  -- Step 3: Insert initial data into the customers table  
+INSERT INTO customers (ID, NAME, AGE, ADDRESS, SALARY) VALUES  
+(1, 'Ramesh', 32, 'Ahmedabad', 2000.00),  
+(2, 'Khilan', 25, 'Delhi', 1500.00),  
+(3, 'Kaushik', 23, 'Kota', 2000.00),  
+(4, 'Chaitali', 25, 'Mumbai', 6500.00),  
+(5, 'Hardik', 27, 'Bhopal', 8500.00),  
+(6, 'Komal', 22, 'MP', 4500.00);  -- Step 4: Create a simplified trigger to log salary changes  
+CREATE TRIGGER log_salary_changes  
+BEFORE INSERT ON customers  
+BEGIN  
+INSERT INTO log_table (message)  
+VALUES ('Inserting new salary: ' || NEW.salary);  
+END;  
+-- Step 5: Create a table to log messages  
+DROP TABLE IF EXISTS log_table; CREATE 
+TABLE log_table (  
+id INTEGER PRIMARY KEY AUTOINCREMENT,     
+message TEXT  
+);  -- Step 6: Insert a new record to test the trigger  
+INSERT INTO customers (ID, NAME, AGE, ADDRESS, SALARY) VALUES (7, 'Kriti', 22, 'HP', 7500.00);  -- Step 7: View the log messages  
+SELECT * FROM log_table;  -- Step 8: View the updated customers table  
+SELECT * FROM customers; OUTPUT:  
++----+-----------------------------+ | 
+ID | MESSAGE                     
+|  
++----+-----------------------------+  
+| 1  | Inserting new salary: 7500  |  
++----+-----------------------------+  
++----+----------+-----+-----------+----------+  
+| ID | NAME     | AGE | ADDRESS   | SALARY   |  
++----+----------+-----+-----------+----------+  
+| 1  | Ramesh   | 32  | Ahmedabad | 2000.00  |  
+| 2  | Khilan   | 25  | Delhi     | 1500.00  |  
+| 3  | Kaushik  | 23  | Kota      
+| 2000.00  |  
+| 4  | Chaitali | 25  | Mumbai    | 6500.00  |  
+| 5  | Hardik   | 27  | Bhopal    | 8500.00  |  
+| 6  | Komal    | 22  | MP       
+| 7  | Kriti    | 22  | HP       
+ | 4500.00  |  
+ | 7500.00  |  
++----+----------+-----+-----------+----------+  

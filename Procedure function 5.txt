@@ -1,0 +1,96 @@
+PRACTICAL NO. : 5  
+Title: To study and inplement PL/SQL programming along with procedures and functions  
+
+mysql> create database practical5; 
+Query OK, 1 row affected (0.01 sec) 
+mysql> use practical5; Database 
+changed  
+mysql> create table marks(roll_no int , name varchar(20), total_marks varchar(20)); Query 
+OK, 0 rows affected (0.02 sec)  
+mysql> create table result(roll_no int , name varchar(20), class varchar(20)); Query 
+OK, 0 rows affected (0.02 sec)  
+mysql> insert into marks values('1','vaishnavi','1400'); 
+Query OK, 1 row affected (0.02 sec) mysql> insert 
+into marks values('2','Riya','980'); Query OK, 1 row 
+affected (0.00 sec)  
+mysql> insert into marks values('3','ashwini','880'); 
+Query OK, 1 row affected (0.00 sec) mysql> insert 
+into marks values('4','pooja','820'); Query OK, 1 
+row affected (0.01 sec) mysql> insert into marks 
+values('5','Mariya','740'); Query OK, 1 row 
+affected (0.00 sec)  
+mysql> insert into marks values('5','Sanjana','640'); 
+Query OK, 1 row affected (0.00 sec) mysql> insert 
+into marks values('6','Aditi','640'); Query OK, 1 row 
+affected (0.01 sec) mysql> delimiter //  
+mysql> create procedure proc_result(in marks int,out class varchar(20))  -> begin  -> if(marks<1500 && marks>990)  -> then  -> set class="Distinction";  
+-> end if;  -> if(marks<989 && marks>890)  -> then  -> set class="First class";  -> end if;  -> if(marks<889 && marks>825)  -> then  -> set class="Higher second class";  -> end if;  -> if(marks<824 && marks>750)  -> then  -> set class="Second Class";  -> end if;  -> if(marks<749 && marks>650)  -> then  -> set class="Passsed";  -> end if;  -> if(marks<649)  -> then  -> set class="Fail";  -> end if;  -> end;  -> //  
+Query OK, 0 rows affected, 5 warnings (0.01 sec) mysql> 
+set global  -> log_bin_trust_function_creators=1;  -> //  
+Query OK, 0 rows affected (0.00 sec) mysql> 
+create function final_result(R1 int)  -> returns int  -> begin  -> declare fmarks integer;  
+-> declare grade varchar(20);  -> declare stud_name varchar(20);  -> select marks.total_marks,marks.name into fmarks,stud_name from marks where 
+marks.roll_no=R1;  -> call proc_result(fmarks,@grade);  -> insert into result values(R1,stud_name,@grade);  -> return R1;  -> end;  -> //  
+Query OK, 0 rows affected (0.01 sec) mysql> 
+select final_result(2);  -> //  
++-----------------+  
+| final_result(2) |  
++-----------------+  
+|               
+2 |  
++-----------------+  
+1 row in set (0.04 sec) mysql> 
+select final_result(1);  -> //  
++-----------------+  
+| final_result(1) |  
++-----------------+  
+|               
+1 |  
++-----------------+  
+1 row in set (0.01 sec) mysql> 
+select final_result(3);  -> //  
++-----------------+  
+| final_result(2) |  
++-----------------+  
+|               
+3 |  
++-----------------+ 1 row in set 
+(0.01 sec) mysql> select 
+f
+ inal_result(4);  -> //  
++-----------------+  
+| final_result(3) |  
++-----------------+  
+|               
+4 |  
++-----------------+ 1 row in set 
+(0.01 sec) mysql> select 
+f
+ inal_result(5);  -> //  
++-----------------+  
+| final_result(4) |  
++-----------------+  
+|               
+5 |  
++-----------------+ 1 row in set 
+(0.01 sec) mysql> select 
+f
+ inal_result(6);  -> //  
++-----------------+  
+| final_result(6) |  
++-----------------+  
+|               
+6 |  
++-----------------+ 1 row in set 
+(0.01 sec) mysql> select * 
+from result;     -> //  
++---------+-----------+---------------------+ | 
+roll_no | name      | class               | +---------+-----------+---------------------+  
+|       2 | Riya      | First class         |  
+|       1 | vaishnavi | Distinction         |  
+|       3 | Riya      | First class         |  
+|       4 | ashwini   | Higher second class |  
+|       5 | pooja     | Second Class        |  
+|       6 | tina      | Fail                |  
++---------+-----------+---------------------+  
+6 rows in set (0.01 sec) 

@@ -1,0 +1,100 @@
+PRACTICAL NO. : 3  
+Title:Unnamed PL/SQL code block: Use of Control structure and Exception handling is mandatory.  
+
+mysql> show databases ;  
++--------------------+  
+| Database          
+ |  
++--------------------+  
+| information_schema |  
+| mysql             
+ |  
+| performance_schema |  
+| sakila            
+| student            
+| sys               
+| world             
+ |  
+ |  
+|  
+ |  
++--------------------+  
+7 rows in set (0.02 sec) mysql> 
+create database library; Query OK, 
+1 row affected (0.00 sec) mysql> 
+use library; Database changed  
+mysql> create table borrower(roll_no int primary key,name varchar(50),date_of_issue 
+date,name_of_book varchar(20),status varchar(20)); Query OK, 0 rows affected (0.01 
+sec)  
+mysql> create table fine(roll_no int,foreign key(roll_no)references borrower(roll_no),return_date 
+date,amount int);  
+Query OK, 0 rows affected (0.01 sec)  
+mysql> insert into borrower values(1,'vaishnavi','2024-08-01','SEPM','I'); Query 
+OK, 1 row affected (0.01 sec)  
+mysql> insert into borrower values(2,'Riya','2024-08-02','OOP','I'); Query 
+OK, 1 row affected (0.00 sec)  
+mysql> insert into borrower values(3,'Ashwini','2024-08-03','DBMS','I');  
+Query OK, 1 row affected (0.00 sec  
+mysql> insert into borrower values(4,'Mariya','2024-08-03','DSA','I'); Query 
+OK, 1 row affected (0.01 sec)  
+mysql> insert into borrower values(5,'khushi','2024-08-03','ADS','I'); 
+Query OK, 1 row affected (0.01 sec) mysql> select* from borrower;  
++---------+-----------+---------------+--------------+--------+  
+| roll_no | name     
+ | date_of_issue | name_of_book | status |  
++---------+-----------+---------------+--------------+--------+  
+|      
+|      
+|      
+|      
+|      
+ 1 | vaishnavi | 2024-08-01    | SEPM        
+ 2 | Riya      
+| 2024-08-02    | OOP         
+ 3 | Ashwini   | 2024-08-03    | DBMS         
+ 4 | Mariya    | 2024-08-03    | DSA         
+ 5 | khushi    | 2024-08-03    | ADS          
+ | I     
+ | I      
+| I      
+ | I     
+| I      
+|  
+ |  
+|  
++---------+-----------+---------------+--------------+--------+  
+5 rows in set (0.01 sec) mysql> 
+delimiter $  
+mysql> create procedure calc_fine_lib(in roll int)  -> begin  -> declare fine1 int;  -> declare noofdays int;  -> declare issuedate date;  
+ |  
+|  -> declare exit handler for SQLEXCEPTION select 'create table definition';  -> select date_of_issue into issuedate from borrower where roll_no=roll;  -> select datediff(curdate(),issuedate)into noofdays;  -> if noofdays>15 and noofdays<=30 then  -> set fine1=noofdays*5;  -> insert into fine values(roll,curdate(),fine1);  -> elseif noofdays>30 then  -> set fine1=((noofdays-30)*50)+30*5;  -> insert into fine values(roll,curdate(),fine1);  -> else  -> insert into fine values(roll,curdate(),0);  -> end if;  
+-> update borrower set status='R' where roll_no=roll;  ->   
+Query OK, 0 rows affected (0.01 sec) 
+mysql>  
+delimiter ; mysql> call 
+calc_fine_lib(1); Query OK, 1 row 
+affected (0.02 sec) mysql> call 
+calc_fine_lib(2); Query OK, 1 row 
+affected (0.04 sec) mysql> call 
+calc_fine_lib(3); Query OK, 1 row 
+affected (0.01 sec) mysql> call 
+calc_fine_lib(4); Query OK, 1 row 
+affected (0.01 sec) mysql> call 
+calc_fine_lib(5); Query OK, 1 row 
+affected (0.01 sec) mysql> select * 
+from fine;  
++---------+-------------+--------+  
+| roll_no | return_date | amount |  
++---------+-------------+--------+  
+|      
+|      
+|      
+|      
+|      
+ 1 | 2024-09-10  |    650 |  
+ 2 | 2024-09-10  |    600 |  
+ 3 | 2024-09-10  |    550 |  
+ 4 | 2024-09-10  |    550 |  
+ 5 | 2024-09-10  |    550 |  
++---------+-------------+--------+  
+5 rows in set (0.00 sec) 

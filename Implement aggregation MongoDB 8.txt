@@ -1,0 +1,153 @@
+PRACTICAL NO. : 8 
+Title:Implement aggregation,indexing with suitable example in MongoDB .Demostate the following .  
+
+//USE DATABASE use 
+comp;   
+//CREATE COLLECTION WEBSITE 
+db.createCollection('website'); //INSERT 
+VALUES IN WEBSITE  
+db.website.insert({'roll':'1','name':'harsh','amount':1000,'ur l':'www.yahoo.com'}) 
+db.website.insert({'roll':'2','name':'jitesh','amount':2000,'url':'www.yahoo.com '}); 
+db.website.insert({'roll':'3','name':'rina','amount':3000,'url':'www.google.com'}); 
+db.website.insert({'roll':'4','name':'ash','amount':4000,'url':'www.gmail.com'}); 
+db.website.insert({'roll':'5','name':'ash','amount':1000,'url':'www.pvg.com'});   
+//SUM AGGREGATE  
+db.website.aggregate({$group:{_id:"$name","total":{$sum:"$amount"}}});  
+//AVG AGGREGATE  
+db.website.aggregate({$group:{_id:"$name","total":{$avg:"$amount"}}});  
+//MIN AGGREGATION  
+db.website.aggregate({$group:{_id:"$name","total":{$min:"$amount"}}});  
+//MAX AGGREGATION  
+db.website.aggregate({$group:{_id:"$name","total":{$max:"$amount"}}});  
+//FIRST AGGREGATION  
+db.website.aggregate({$group:{_id:"$name","total":{$first:"$amount"}}});  
+//LAST AGGREGATION  
+db.website.aggregate({$group:{_id:"$name","total":{$last:"$amount"}}});  
+//PUSH AGGREGATION db.website.aggregate({$group:{_id:"$name","total":  
+{$push:"$amount"}}}); //COUNT 
+AGGREGATION  
+db.website.aggregate({$group:{_id:"$name","total": {$sum:1}}});  
+//ADDTOSET AGGREGATE  
+db.website.aggregate({$group:{_id:"$name","total"{$addToSet:"$amount"}}});  
+//INDEXING  
+db.createCollection('website1'); 
+db.website1.insert({'r':1,'name':'harsh'});  
+db.website1.find().pretty() db.website1.createIndex({'name':1})  
+//CREATE INDEXING 
+db.website1.createIndex({'name':-1}) 
+db.website1.getIndexses() db.website1.getIndexes() 
+[  
+{"v" : 1, },  
+{"v" : 1,"key" : {"name" : 1},"name" : "name_1", "ns" : "harsh.website1"},  
+{"v" : 1,"key" : {"name" : -1},"name" : "name_-1", "ns" : "harsh.website1"}  
+]  
+db.website1.createIndex({'name':-1})  
+//DROP INDEX  
+db.website.dropIndex({'name':-1}) db.website1.dropIndex({'name':1}) 
+db.website1.dropIndex({'name':1})  
+//GET INDEXING db.website1.getIndexes() 
+[  
+{"v" : 1,}  
+]  
+db.website1.find().pretty() 
+db.website1.createIndex({'name':1}) db.website1.getIndexes()[  
+{"v" : 1,"key" : {"_id" : 1},"name" : "_id_","ns" : "harsh.website1"},  
+{"v" : 1,"key" : {"name" : 1},"name" : "name_1", "ns" : "harsh.website1"}  
+]  
+db.website1.dropIndex({'name':1})  
+db.website1.getIndexes() [  
+{"v" : 1,"key" : {"_id" : 1},"name" : "_id_","ns" : "harsh.website1"}  
+]  
+db.website1.createIndex({'name':1,'r':-1}) db.website1.getIndexes() 
+[  
+{"v" : 1,"key" : {"_id" : 1},"name" : "_id_","ns" : "harsh.website1"},  
+{"v" : 1,"key" : {"name" : 1,"r" : -1},"name" : "name_1_r_-1", "ns" : "harsh.website1"}  
+]   
+db.website1.insert({'roll':1,'name':'harsh'});  
+STDIN  
+Input for the program ( Optional ) Output:  
+switched to db comp  
+{            
+}  
+ "ok" : 0,  
+"errmsg" : "Collection already exists. NS: comp.website",  
+"code" : 48,  
+"codeName" : "NamespaceExists"  
+WriteResult({ "nInserted" : 1 })  
+WriteResult({ "nInserted" : 1 })  
+WriteResult({ "nInserted" : 1 })  
+WriteResult({ "nInserted" : 1 })  
+WriteResult({ "nInserted" : 1 })  
+{ "_id" : "harsh", "total" : 2000 }  
+{ "_id" : "rina", "total" : 6000 }  
+{ "_id" : "jitesh", "total" : 4000 }  
+{ "_id" : "ash", "total" : 9000 }  
+{ "_id" : "harsh", "total" : 1000 }  
+{ "_id" : "rina", "total" : 3000 }  
+{ "_id" : "jitesh", "total" : 2000 }  
+{ "_id" : "ash", "total" : 3000 }  
+{ "_id" : "harsh", "total" : 1000 }  
+{ "_id" : "rina", "total" : 3000 }  
+{ "_id" : "jitesh", "total" : 2000 }  
+{ "_id" : "ash", "total" : 1000 }  
+{ "_id" : "harsh", "total" : 1000 }  
+{ "_id" : "rina", "total" : 3000 }  
+{ "_id" : "jitesh", "total" : 2000 }  
+{ "_id" : "ash", "total" : 4000 }  
+{ "_id" : "harsh", "total" : 1000 }  
+{ "_id" : "rina", "total" : 3000 }  
+{ "_id" : "jitesh", "total" : 2000 }  
+{ "_id" : "ash", "total" : 4000 }  
+{ "_id" : "harsh", "total" : 1000 }  
+{ "_id" : "rina", "total" : 3000 }  
+{ "_id" : "jitesh", "total" : 2000 }  
+{ "_id" : "ash", "total" : 1000 }  
+{ "_id" : "harsh", "total" : [ 1000, 1000 ] }  
+{ "_id" : "rina", "total" : [ 3000, 3000 ] }  
+{ "_id" : "jitesh", "total" : [ 2000, 2000 ] }  
+{ "_id" : "ash", "total" : [ 4000, 4000, 1000 ] }  
+{ "_id" : "harsh", "total" : 2 }  
+{ "_id" : "rina", "total" : 2 }  
+{ "_id" : "jitesh", "total" : 2 } { "_id" : "ash", "total" : 3 } 
+uncaught exception: SyntaxError: expected expression, got '>' :  
+@(shell):1:0  
+{ "ok" : 1 }  
+WriteResult({ "nInserted" : 1 })  
+{ "_id" : ObjectId("6734995cd751573da24237ee"), "r" : 1, "name" : "harsh" }  
+{            
+{            
+ "numIndexesBefore" : 1,  
+"numIndexesAfter" : 2,  
+"createdCollectionAutomatically" : false,  
+"ok" : 1}  
+"numIndexesBefore" : 2,  
+"numIndexesAfter" : 3,  
+"createdCollectionAutomatically" : false,  
+"ok" : 1}  
+uncaught exception: TypeError: db.website1.getIndexses is not a function :  
+@(shell):1:1  
+{             "numIndexesBefore" : 3,  
+  "numIndexesAfter" : 3,  
+  "note" : "all indexes already exist",  
+  "ok" : 1}  
+{             "ok" : 0,  
+  "errmsg" : "can't find index with key: { name: -1.0 }",  
+  "code" : 27,  
+  "codeName" : "IndexNotFound"}  
+{ "nIndexesWas" : 3, "ok" : 1 }  
+{             "ok" : 0,  
+  "errmsg" : "can't find index with key: { name: 1.0 }",  
+  "code" : 27,  
+  "codeName" : "IndexNotFound"}  
+{ "_id" : ObjectId("6734995cd751573da24237ee"), "r" : 1, "name" : "harsh" }  
+{            "numIndexesBefore" : 2,  
+  "numIndexesAfter" : 3,  
+  "createdCollectionAutomatically" : false,  
+  "ok" : 1}  
+{ "nIndexesWas" : 3, "ok" : 1 }  
+{             "numIndexesBefore" : 2,  
+  "numIndexesAfter" : 3,  
+  "createdCollectionAutomatically" : false,  
+  "ok" : 1  
+}  
+WriteResult({ "nInserted" : 1 })  
